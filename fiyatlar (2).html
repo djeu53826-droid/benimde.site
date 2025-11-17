@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Fiyatlar – Benimde.com</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root{
+      --nav-bg:#0b1020;
+      --nav-text:#e5e7eb;
+
+      --hero-top:#f5fff6;      /* bizimhesap gibi yeşil-beyaz */
+      --hero-bottom:#e5f4ff;
+
+      --primary:#111827;
+      --muted:#6b7280;
+      --accent:#22c55e;
+      --accent-soft:#bbf7d0;
+
+      --card-bg:#ffffff;
+      --card-border:#e5e7eb;
+
+      --table-header:#f9fafb;
+
+      --faq-bg:#f9fafb;
+      --faq-card:#ffffff;
+
+      --footer-top:#ffb366;
+      --footer-bg:#8b3b06;
+      --footer-text:#f0fdf4;
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;}
+    body{background:#f9fafb;color:var(--primary);}
+    a{text-decoration:none;color:inherit;}
+    .container{max-width:1200px;margin:0 auto;padding:0 24px;}
+
+    /* NAVBAR (index.html ile aynı) */
+    header{
+      background:var(--nav-bg);
+      position:sticky;top:0;z-index:40;
+      box-shadow:0 4px 18px rgba(0,0,0,.6);
+    }
+    .nav{
+      display:flex;align-items:center;justify-content:space-between;
+      padding:14px 0;
+    }
+    .nav-left{display:flex;align-items:flex-start;gap:10px;}
+    .logo-main{
+      font-size:22px;font-weight:800;text-transform:lowercase;
+      letter-spacing:.06em;color:#f9fafb;
+    }
+    .logo-main span{color:#22c55e;}
+    .logo-sub{
+      font-size:11px;color:#9ca3af;letter-spacing:.16em;
+      text-transform:uppercase;margin-top:-4px;
+    }
+
+    .nav-center{display:flex;gap:24px;font-size:14px;}
+    .nav-center a{
+      color:var(--nav-text);padding:4px 2px;
+      display:flex;align-items:center;gap:4px;
+      position:relative;
+    }
+    .nav-center a span.arrow{font-size:10px;transform:translateY(1px);}
+    .nav-center a:hover{color:#f9fafb;}
+
+    .nav-center a.fiyatlar-active::after{
+      content:"";position:absolute;left:0;right:0;bottom:-6px;
+      height:2px;border-radius:999px;background:#22c55e;
+    }
+
+    .nav-right{display:flex;align-items:center;gap:16px;font-size:14px;color:var(--nav-text);}
+    .nav-right a{color:var(--nav-text);}
+    .btn-primary{
+      background:linear-gradient(135deg,#ffb347,#ff8800);
+      border:none;border-radius:999px;
+      padding:8px 18px;font-size:13px;font-weight:600;
+      color:#111827;cursor:pointer;
+      box-shadow:0 8px 24px rgba(251,146,60,0.6);
+    }
+
+    /* HERO / PAKETLER */
+    .hero-pricing{

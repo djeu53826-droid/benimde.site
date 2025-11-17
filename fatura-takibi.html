@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Fatura Takibi – Benimde.com</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- BURADAKİ STYLE BLOĞU index.html ile AYNI, sadece ortadaki kısmı kullandım -->
+  <!-- Kısaltmak için header/footer stillerini tekrar kullanıyoruz -->
+  <style>
+    /* header + footer stilleri (index’ten kısaltılmış hali) */
+    :root{
+      --bg:#020617;--bg-soft:#050816;--primary:#f97316;--primary-soft:#ffedd5;
+      --text:#f9fafb;--muted:#9ca3af;--border:#111827;--card:#0b1120;
+      --footer-top:#e9ffe0;--footer-bg:#064e3b;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;}
+    body{background:var(--bg);color:var(--text);}
+    a{text-decoration:none;color:inherit;}
+    .container{max-width:1200px;margin:0 auto;padding:0 24px;}
+    header{background:#020617;position:sticky;top:0;z-index:40;border-bottom:1px solid #030712;}
+    .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0;}
+    .nav-left{display:flex;align-items:flex-start;gap:10px;}
+    .logo-main{font-size:22px;font-weight:800;text-transform:lowercase;letter-spacing:.06em;}
+    .logo-main span{color:var(--primary);}
+    .logo-sub{font-size:11px;color:var(--muted);letter-spacing:.16em;text-transform:uppercase;margin-top:-4px;}
+    .nav-center{display:flex;gap:24px;font-size:14px;}
+    .nav-center a{color:var(--muted);padding:4px 2px;display:flex;align-items:center;gap:4px;}
+    .nav-center a span.arrow{font-size:10px;transform:translateY(1px);}
+    .nav-center a:hover{color:#f3f4f6;}
+    .nav-right{display:flex;align-items:center;gap:14px;font-size:14px;}
+    .nav-right a{color:var(--muted);}
+    .btn-primary{
+      background:linear-gradient(135deg,#f97316,#fb923c);
+      border:none;border-radius:999px;padding:8px 18px;
+      font-size:13px;font-weight:600;color:#111827;cursor:pointer;
+      box-shadow:0 8px 24px rgba(248,148,40,0.35);
+    }
+
+    main{padding:32px 0 40px;}
+    .feature-layout{
+      background:var(--bg-soft);
+      border-radius:26px;
+      border:1px solid var(--border);
+      padding:26px;
+      display:grid;
+      grid-template-columns:260px minmax(0,1fr);
+      gap:24px;
+    }
+
+    .side-nav{
+      background:#020617;
+      border-radius:20px;
+      border:1px solid var(--border);
+      padding:18px 18px 16px;
+    }
+    .side-title{
+      font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.18em;margin-bottom:14px;
+    }
+    .side-link{
+      display:block;font-size:13px;padding:8px 12px;border-radius:999px;color:var(--muted);margin-bottom:4px;
+      transition:.15s;
+    }
+    .side-link:hover{color:#fff;background:#020617;}
+    .side-link.active{
+      background:linear-gradient(135deg,#f97316,#fb923c);
+      color:#111827;font-weight:600;
+    }
+
+    .feature-card{
+      background:var(--card);
+      border-radius:22px;
+      padding:22px 22px 24px;
+      border:1px solid var(--border);
+      box-shadow:0 18px 50px rgba(15,23,42,0.9);
+    }
+    .feature-tag{
+      font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.18em;margin-bottom:6px;
+    }
+    .feature-title{font-size:26px;margin-bottom:10px;}
+    .feature-sub{font-size:14px;color:var(--muted);margin-bottom:16px;max-width:700px;}
+    .feature-body{
+      display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1.1fr);gap:20px;align-items:flex-start;
+    }
+    .feature-body h3{font-size:15px;margin-top:4px;margin-bottom:6px;}
+    .feature-body ul{margin-left:18px;margin-bottom:10px;font-size:13px;color:var(--muted);}
+
+    /* basit animasyonlu kutu */
+    .invoice-visual{
+      background:radial-gradient(circle at 0 0,rgba(249,115,22,0.24),transparent 60%),#020617;
+      border-radius:18px;padding:14px;border:1px solid #111827;position:relative;overflow:hidden;min-height:180px;
+    }
+    .invoice-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;font-size:12px;color:var(--muted);}
+    .invoice-pill{padding:3px 8px;border-radius:999px;background:rgba(15,23,42,0.9);border:1px solid #1f2937;font-size:11px;color:var(--primary-soft);}
+    .invoice-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;font-size:12px;}
+    .invoice-label{color:var(--muted);}
+    .invoice-value{color:var(--primary-soft);font-weight:600;}
+    .mini-chart{position:relative;margin-top:8px;height:70px;border-radius:10px;background:linear-gradient(180deg,rgba(15,23,42,0.9),#020617);overflow:hidden;}
+    .mini-chart-line{position:absolute;inset:0;background:linear-gradient(90deg,transparent 0%,rgba(249,115,22,0.7) 40%,rgba(251,191,36,0.9) 70%,transparent 100%);opacity:.6;
+      clip-path:path("M0,60 C40,40 80,20 120,30 C160,40 200,10 240,18 C280,26 320,8 360,18 L360,70 L0,70 Z");
+      animation:chartMove 6s ease-in-out infinite alternate;}
+    .mini-chart-dot{position:absolute;width:8px;height:8px;border-radius:999px;background:#facc15;box-shadow:0 0 12px #facc15;top:18px;left:64%;animation:dotMove 6s ease-in-out infinite alternate;}
+    .invoice-floating{position:absolute;right:10px;bottom:10px;font-size:11px;background:rgba(15,23,42,0.96);border-radius:999px;padding:4px 8px;border:1px solid #1f2937;color:var(--muted);display:flex;align-items:center;gap:4px;}
+    .invoice-floating span.dot{width:6px;height:6px;border-radius:999px;background:#22c55e;box-shadow:0 0 6px #22c55e;}
+    @keyframes chartMove{0%{transform:translateX(0);}100%{transform:translateX(-20px);}}
+    @keyframes dotMove{0%{transform:translateX(0);}100%{transform:translateX(20px);}}
+
+    .cta-bar{border-top:1px solid #111827;margin-top:16px;padding-top:12px;display:flex;justify-content:space-between;gap:10px;align-items:center;font-size:13px;color:var(--muted);flex-wrap:wrap;}
+    .cta-bar strong{color:var(--primary-soft);}
+
+    /* footer (index ile aynı yapı) */
+    .footer-top{background:var(--footer-top);text-align:center;padding:48px 16px 36px;color:#064e3b;}
+    .footer-top h2{font-size:24px;margin-bottom:8px;}
+    .footer-top button{margin-top:16px;background:#4ade80;border:none;padding:10px 22px;border-radius:999px;font-size:14px;font-weight:600;cursor:pointer;color:#064e3b;}
+    footer{background:var(--footer-bg);color:#ecfdf5;padding:32px 24px 16px;margin-top:0;}
+    .footer-inner{max-width:1200px;margin:0 auto;}
+    .footer-cols{display:grid;grid-template-columns:260px repeat(3,minmax(0,1fr));gap:32px;font-size:13px;}
+    .footer-logo{font-size:26px;font-weight:800;line-height:1.1;margin-bottom:8px;}
+    .footer-logo span{color:#a7f3d0;}
+    .footer-address{font-size:13px;margin-bottom:14px;}
+    .footer-social{display:flex;gap:8px;font-size:12px;}
+    .footer-social span{width:22px;height:22px;border-radius:999px;border:1px solid #10b981;display:flex;align-items:center;justify-content:center;}
+    .footer-cols h4{font-size:13px;margin-bottom:8px;font-weight:600;}
+    .footer-cols ul{list-style:none;}
+    .footer-cols li{margin-bottom:4px;color:#a7f3d0;}
+    .footer-bottom{margin-top:26px;font-size:12px;color:#a7f3d0;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;border-top:1px solid #065f46;padding-top:10px;}
+
+    .scroll-top{position:fixed;right:22px;bottom:22px;width:40px;height:70px;border-radius:20px;border:2px solid #4b5563;display:flex;justify-content:center;align-items:flex-start;padding-top:8px;cursor:pointer;opacity:0;pointer-events:none;transition:.25s;background:rgba(15,23,42,0.9);z-index:50;}
+    .scroll-top.visible{opacity:1;pointer-events:auto;}
+    .scroll-top-wheel{width:6px;height:12px;border-radius:999px;background:#f97316;animation:wheel 1.4s ease-in-out infinite;}
+    @keyframes wheel{0%{transform:translateY(0);}50%{transform:translateY(10px);}100%{transform:translateY(0);}}
+
+    @media(max-width:960px){.feature-layout{grid-template-columns:1fr;gap:18px;}.footer-cols{grid-template-columns:repeat(2,minmax(0,1fr));}}
+    @media(max-width:720px){.nav{flex-wrap:wrap;gap:10px;}.nav-center{order:3;width:100%;justify-content:center;flex-wrap:wrap;}.feature-body{grid-template-columns:1fr;gap:14px;}.footer-cols{grid-template-columns:1fr;}}
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="container nav">
+    <div class="nav-left">
+      <a href="index.html">
+        <div>
+          <div class="logo-main">ben<span>imde</span></div>
+          <div class="logo-sub">ÖN MUHASEBE PROGRAMI</div>
+        </div>
+      </a>
+    </div>
+
+    <div class="nav-center">
+      <a href="fatura-takibi.html"><span>Özellikler</span><span class="arrow">▾</span></a>
+      <a href="ayricaliklar.html">Ayrıcalıklar</a>
+      <a href="sektorler.html">Sektörler</a>
+      <a href="fiyatlar.html">Fiyatlar</a>
+      <a href="musterilerimiz.html">Bizimkiler</a>
+      <a href="blog.html">Blog</a>
+    </div>
+
+    <div class="nav-right">
+      <a href="giris.html">Giriş Yap</a>
+      <button class="btn-primary">Ücretsiz Kayıt Ol</button>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+  <div class="feature-layout">
+    <!-- SOL MENÜ -->
+    <aside class="side-nav">
+      <div class="side-title">Özellikler</div>
+      <a class="side-link" href="on-muhasebe-programi.html">Ön Muhasebe Programı</a>
+      <a class="side-link" href="gelir-gider-takibi.html">Gelir Gider Takibi</a>
+      <a class="side-link" href="cari-hesap-takibi.html">Cari Hesap Takibi</a>
+      <a class="side-link active" href="fatura-takibi.html">Fatura Takibi</a>
+      <a class="side-link" href="nakit-yonetimi.html">Nakit Yönetimi</a>
+      <a class="side-link" href="stok-depo-takibi.html">Stok ve Depo Takibi</a>
+      <a class="side-link" href="saha-satis-takibi.html">Saha Satış Takibi</a>
+      <a class="side-link" href="siparis-takibi.html">Sipariş Takibi</a>
+      <a class="side-link" href="proje-yonetimi.html">Proje Yönetimi</a>
+      <a class="side-link" href="sube-takibi.html">Şube Takibi</a>
+      <a class="side-link" href="e-ticaret.html">e-Ticaret</a>
+      <a class="side-link" href="e-fatura-pos.html">e-Fatura POS Entegrasyonu</a>
+      <a class="side-link" href="raporlar.html">Raporlar</a>
+      <a class="side-link" href="uretim-takibi.html">Üretim Takibi</a>
+      <a class="side-link" href="e-fatura-earsiv.html">e-Fatura &amp; e-Arşiv</a>
+      <a class="side-link" href="e-irsaliye.html">e-İrsaliye</a>
+      <a class="side-link" href="e-ihracat.html">e-İhracat</a>
+    </aside>
+
+    <!-- SAĞ İÇERİK -->
+    <section class="feature-card">
+      <div class="feature-tag">Özellik</div>
+      <h1 class="feature-title">Fatura Takibi</h1>
+      <p class="feature-sub">
+        Fatura takibi modülü ile kesilen tüm satış ve alış faturalarınızı vade, tutar, vergi
+        ve tahsilat detaylarıyla birlikte izlersiniz. Hangi faturanın tahsil edildiğini,
+        hangisinin beklediğini net olarak görürsünüz.
+      </p>
+
+      <div class="feature-body">
+        <div>
+          <h3>Satış ve alış faturalarını ayırın</h3>
+          <ul>
+            <li>Satış / alış / iade türlerine göre ayrılmış listeleme</li>
+            <li>Toplam tutar, KDV ve stopaj dağılımı</li>
+            <li>Şube veya kullanıcı bazlı filtreleme</li>
+          </ul>
+
+          <h3>Vade ve tahsilat ilişkisi</h3>
+          <ul>
+            <li>Vadesi geçen faturaların listesi</li>
+            <li>Tahsil edilen ve açık faturaların ayrımı</li>
+            <li>Cari hesaplarla eşleşen tahsilat hareketleri</li>
+          </ul>
+
+          <h3>Filtre ve raporlar</h3>
+          <ul>
+            <li>Dönemsel satış ve alış raporları</li>
+            <li>KDV ve vergi raporları</li>
+            <li>Excel’e aktarım imkânı</li>
+          </ul>
+        </div>
+
+        <div class="invoice-visual">
+          <div class="invoice-header">
+            <span>Fatura Özeti</span>
+            <span class="invoice-pill">Bu Ay</span>
+          </div>
+          <div class="invoice-row">
+            <span class="invoice-label">Toplam Satış</span>
+            <span class="invoice-value">₺352.420</span>
+          </div>
+          <div class="invoice-row">
+            <span class="invoice-label">Tahsil Edilen</span>
+            <span class="invoice-value">₺298.700</span>
+          </div>
+          <div class="invoice-row">
+            <span class="invoice-label">Vadesi Geçen</span>
+            <span class="invoice-value">₺18.900</span>
+          </div>
+
+          <div class="mini-chart">
+            <div class="mini-chart-line"></div>
+            <div class="mini-chart-dot"></div>
+          </div>
+
+          <div class="invoice-floating">
+            <span class="dot"></span>
+            Son 7 günde tahsilat %42 arttı
+          </div>
+        </div>
+      </div>
+
+      <div class="cta-bar">
+        <span>
+          Faturalarınızı Benimde.com ile takip ederek
+          <strong>satış ve tahsilat sürecinizi</strong> şeffaf hale getirin.
+        </span>
+        <button class="btn-primary">Fatura takibini dene</button>
+      </div>
+    </section>
+  </div>
+</main>
+
+<!-- FOOTER ÜST FİYAT CTA -->
+<section class="footer-top">
+  <h2>Hesabını Bilenlere En Avantajlı Fiyatlar<br/>Benimde.com’da!</h2>
+  <button type="button">Fiyatları İnceleyin</button>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-cols">
+      <div>
+        <div class="footer-logo">ben<span>imde</span></div>
+        <div class="footer-address">
+          Business İstanbul, B-Blok, Kat:14,<br/>Kadıköy / İstanbul
+        </div>
+        <div class="footer-social">
+          <span>f</span><span>x</span><span>in</span><span>yt</span>
+        </div>
+      </div>
+
+      <div>
+        <h4>Özellikler</h4>
+        <ul>
+          <li>Ön Muhasebe Programı</li>
+          <li>Gelir Gider Takibi</li>
+          <li>Cari Hesap Takibi</li>
+          <li>Fatura Takibi</li>
+          <li>Nakit Yönetimi</li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Ayrıcalıklar</h4>
+        <ul>
+          <li>Yeni Şirket Kampanyası</li>
+          <li>Destek</li>
+          <li>Blog</li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Hakkımızda</h4>
+        <ul>
+          <li>Hakkımızda</li>
+          <li>Gizlilik Koşulları</li>
+          <li>KVKK Aydınlatma Metni</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© <script>document.write(new Date().getFullYear());</script> Benimde.com</span>
+      <span>Uygulamayı indir • App Store • Google Play</span>
+    </div>
+  </div>
+</footer>
+
+<div class="scroll-top" id="scrollTopBtn" aria-label="Yukarı çık">
+  <div class="scroll-top-wheel"></div>
+</div>
+
+<script>
+  const scrollBtn = document.getElementById('scrollTopBtn');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 200) scrollBtn.classList.add('visible');
+    else scrollBtn.classList.remove('visible');
+  });
+  scrollBtn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+</script>
+
+</body>
+</html>
