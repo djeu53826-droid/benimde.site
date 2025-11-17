@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Ön Muhasebe Programı – Benimde.com</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root{
+      --bg:#020617;--primary:#f97316;--primary-soft:#ffedd5;
+      --text:#f9fafb;--muted:#9ca3af;--border:#111827;--card:#0b1120;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;}
+    body{background:var(--bg);color:var(--text);}
+    a{text-decoration:none;color:inherit;}
+    .container{max-width:1100px;margin:0 auto;padding:0 18px;}
+
+    header{border-bottom:1px solid var(--border);background:#020617;position:sticky;top:0;z-index:20;}
+    .topbar{font-size:12px;color:var(--muted);padding:6px 0;border-bottom:1px solid var(--border);}
+    .topbar-inner{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;}
+    .nav{display:flex;justify-content:space-between;align-items:center;padding:14px 0;}
+    .logo-main{font-size:20px;font-weight:800;text-transform:lowercase;}
+    .logo-main span{color:var(--primary);}
+    .logo-sub{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.15em;}
+    .nav-links{display:flex;gap:16px;}
+    .nav-links a{padding:6px 10px;border-radius:20px;font-size:13px;color:var(--muted);}
+    .nav-links a.active{background:#111827;color:var(--primary-soft);}
+    .btn-primary{background:var(--primary);border:none;border-radius:20px;padding:8px 16px;color:#111827;font-weight:600;cursor:pointer;}
+
+    main{padding:32px 0 40px;}
+    .feature-layout{display:grid;grid-template-columns:260px minmax(0,1fr);gap:24px;}
+
+    .side-nav{background:var(--card);border-radius:18px;padding:16px;border:1px solid var(--border);}
+    .side-title{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.18em;margin-bottom:10px;}
+    .side-link{display:block;font-size:13px;padding:8px 12px;border-radius:999px;color:var(--muted);margin-bottom:4px;}
+    .side-link.active{background:rgba(249,115,22,0.18);color:var(--primary-soft);}
+    .side-link:hover{color:#fff;border-left:3px solid var(--primary);}
+
+    .feature-card{background:var(--card);border-radius:22px;padding:24px;border:1px solid var(--border);}
+    .feature-tag{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.18em;margin-bottom:6px;}
+    .feature-title{font-size:26px;margin-bottom:10px;}
+    .feature-sub{font-size:14px;color:var(--muted);margin-bottom:20px;max-width:640px;}
+    .feature-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;font-size:13px;}
+    .feature-block-title{font-weight:600;margin-bottom:4px;}
+    .feature-block p{color:var(--muted);margin-bottom:6px;}
+    ul{padding-left:18px;color:var(--muted);}
+  </style>
+</head>
+<body>
+
+<!-- ÜST MENÜ -->
+<header>
+  <div class="topbar">
+    <div class="container topbar-inner">
+      <span>Benimde.com – İşletmeniz için akıllı ön muhasebe platformu</span>
+      <span>Destek: 0212 000 00 00</span>
+    </div>
+  </div>
+
+  <nav class="container nav">
+    <a href="index.html">
+      <div>
+        <div class="logo-main">ben<span>imde</span></div>
+        <div class="logo-sub">ön muhasebe programı</div>
+      </div>
+    </a>
+
+    <div class="nav-links">
+      <a href="on-muhasebe-programi.html" class="active">Özellikler</a>
+      <a href="ayricaliklar.html">Ayrıcalıklar</a>
+      <a href="fiyatlar.html">Fiyatlar</a>
+      <a href="musterilerimiz.html">Bizimkiler</a>
+    </div>
+
+    <button class="btn-primary">Ücretsiz Kayıt Ol</button>
+  </nav>
+</header>
+
+<main class="container">
+  <div class="feature-layout">
+
+    <!-- SOL ÖZELLİK MENÜSÜ -->
+    <aside class="side-nav">
+      <div class="side-title">Özellikler</div>
+      <a class="side-link active" href="on-muhasebe-programi.html">Ön Muhasebe Programı</a>
+      <a class="side-link" href="gelir-gider-takibi.html">Gelir Gider Takibi</a>
+      <a class="side-link" href="cari-hesap-takibi.html">Cari Hesap Takibi</a>
+      <a class="side-link" href="fatura-takibi.html">Fatura Takibi</a>
+      <a class="side-link" href="nakit-yonetimi.html">Nakit Yönetimi</a>
+      <a class="side-link" href="stok-depo-takibi.html">Stok & Depo</a>
+      <a class="side-link" href="saha-satis-takibi.html">Saha Satış Takibi</a>
+      <a class="side-link" href="siparis-takibi.html">Sipariş Takibi</a>
+      <a class="side-link" href="proje-yonetimi.html">Proje Yönetimi</a>
+      <a class="side-link" href="sube-takibi.html">Şube Takibi</a>
+      <a class="side-link" href="e-ticaret.html">e-Ticaret</a>
+      <a class="side-link" href="e-fatura-pos.html">e-Fatura POS</a>
+      <a class="side-link" href="raporlar.html">Raporlar</a>
+      <a class="side-link" href="uretim-takibi.html">Üretim Takibi</a>
+      <a class="side-link" href="e-fatura-earsiv.html">e-Fatura & e-Arşiv</a>
+      <a class="side-link" href="e-irsaliye.html">e-İrsaliye</a>
+      <a class="side-link" href="e-ihracat.html">e-İhracat</a>
+    </aside>
+
+    <!-- SAĞ İÇERİK -->
+    <section class="feature-card">
+      <div class="feature-tag">Özellik</div>
+      <h1 class="feature-title">Ön Muhasebe Programı</h1>
+      <p class="feature-sub">
+        Benimde.com ön muhasebe programı; cari, stok, fatura, kasa ve banka hareketlerinizi tek yerden
+        yönetebilmeniz için tasarlanmış, bulut tabanlı bir çözümdür.
+      </p>
+
+      <div class="feature-grid">
+        <div class="feature-block">
+          <div class="feature-block-title">Tüm temel işlemler tek panelde</div>
+          <p>İşletmenizin günlük finans süreçlerini dağınık Excel dosyaları olmadan yönetirsiniz.</p>
+          <ul>
+            <li>Cari hesap takibi</li>
+            <li>Alış / satış faturaları</li>
+            <li>Stok giriş–çıkış işlemleri</li>
+          </ul>
+        </div>
+
+        <div class="feature-block">
+          <div class="feature-block-title">Güncel borç–alacak durumu</div>
+          <p>Müşterilerinizin ve tedarikçilerinizin güncel bakiyesini tek tıkla görebilirsiniz.</p>
+          <ul>
+            <li>Riskli cari listesi</li>
+            <li>Vadesi geçen alacaklar</li>
+            <li>Ödeme alışkanlığı analizi</li>
+          </ul>
+        </div>
+
+        <div class="feature-block">
+          <div class="feature-block-title">Hızlı raporlama</div>
+          <p>Günlük, haftalık ve aylık sonuçlarınızı raporlarla izlersiniz.</p>
+          <ul>
+            <li>Gelir–gider özeti</li>
+            <li>En çok satan ürünler</li>
+            <li>Excel’e aktarma imkânı</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+</body>
+</html>

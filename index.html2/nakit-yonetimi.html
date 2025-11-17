@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Nakit Yönetimi – Benimde.com</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Nakit yönetimi ile kasa, banka, çek ve senet hareketlerinizi tek panelden yönetin.">
+  <style>
+    :root{
+      --bg:#020617;
+      --bg-soft:#02091b;
+      --primary:#f97316;
+      --primary-soft:#ffedd5;
+      --primary-dark:#ea580c;
+      --text:#f9fafb;
+      --muted:#9ca3af;
+      --border:#111827;
+      --card:#0b1120;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;}
+    body{background:var(--bg);color:var(--text);}
+    a{text-decoration:none;color:inherit;}
+    .container{max-width:1100px;margin:0 auto;padding:0 18px;}
+
+    header{
+      border-bottom:1px solid var(--border);
+      background:#020617;
+      position:sticky;
+      top:0;
+      z-index:10;
+    }
+    .topbar{
+      font-size:12px;
+      color:var(--muted);
+      padding:6px 0;
+      border-bottom:1px solid var(--border);
+    }
+    .topbar-inner{
+      display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;
+    }
+    .nav{
+      display:flex;align-items:center;justify-content:space-between;padding:12px 0;gap:16px;
+    }
+    .logo-main{font-weight:800;letter-spacing:.06em;font-size:20px;text-transform:lowercase;}
+    .logo-main span{color:var(--primary);}
+    .logo-sub{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);}
+    .nav-links{display:flex;gap:16px;font-size:13px;color:var(--muted);}
+    .nav-links a{padding:4px 6px;border-radius:999px;}
+    .nav-links a.active{color:var(--primary-soft);background:#111827;}
+    .btn-primary{
+      border-radius:999px;border:none;padding:7px 14px;font-size:12px;font-weight:600;
+      background:var(--primary);color:#111827;cursor:pointer;
+    }
+
+    main{padding:32px 0 40px;}
+    .feature-layout{
+      display:grid;
+      grid-template-columns:minmax(0,260px) minmax(0,1fr);
+      gap:24px;
+    }
+    .side-nav{
+      background:var(--card);
+      border-radius:18px;
+      padding:16px 14px;
+      border:1px solid var(--border);
+    }
+    .side-title{
+      font-size:12px;
+      text-transform:uppercase;
+      letter-spacing:.18em;
+      color:var(--muted);
+      margin-bottom:10px;
+    }
+    .side-link{
+      display:block;
+      font-size:13px;
+      padding:6px 8px;
+      border-radius:999px;
+      color:var(--muted);
+      margin-bottom:2px;
+    }
+    .side-link.active{
+      background:rgba(249,115,22,0.15);
+      color:var(--primary-soft);
+    }
+
+    .feature-card{
+      background:var(--card);
+      border-radius:22px;
+      padding:20px 20px 22px;
+      border:1px solid var(--border);
+      box-shadow:0 18px 50px rgba(15,23,42,0.9);
+    }
+    .feature-tag{
+      font-size:11px;
+      text-transform:uppercase;
+      letter-spacing:.18em;
+      color:var(--muted);
+      margin-bottom:6px;
+    }
+    .feature-title{font-size:24px;margin-bottom:6px;}
+    .feature-sub{font-size:14px;color:var(--muted);margin-bottom:16px;max-width:650px;}
+    .feature-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+      gap:16px;
+      font-size:13px;
+      color:var(--text);
+    }
+    .feature-block-title{font-weight:600;margin-bottom:4px;}
+    .feature-block p{color:var(--muted);margin-bottom:6px;}
+    ul{padding-left:16px;margin-top:4px;color:var(--muted);}
+    .cta{
+      margin-top:18px;
+      padding-top:14px;
+      border-top:1px dashed #1f2937;
+      font-size:13px;
+      color:var(--muted);
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+    .cta strong{color:var(--primary-soft);}
+    .cta .btn-primary{font-size:12px;}
+
+    footer{
+      border-top:1px solid var(--border);
+      font-size:12px;
+      color:var(--muted);
+      text-align:center;
+      padding:12px 0 18px;
+    }
+
+    @media(max-width:800px){
+      .feature-layout{grid-template-columns:minmax(0,1fr);}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="topbar">
+      <div class="container topbar-inner">
+        <span>Benimde.com – İşletmeniz için akıllı ön muhasebe platformu</span>
+        <span>Destek: 0212 000 00 00</span>
+      </div>
+    </div>
+    <nav class="container nav">
+      <div>
+        <div class="logo-main">ben<span>imde</span></div>
+        <div class="logo-sub">ön muhasebe programı</div>
+      </div>
+      <div class="nav-links">
+        <a href="#" class="active">Özellikler</a>
+        <a href="#">Ayrıcalıklar</a>
+        <a href="#">Fiyatlar</a>
+        <a href="#">Bizimkiler</a>
+      </div>
+      <button class="btn-primary">Ücretsiz Kayıt Ol</button>
+    </nav>
+  </header>
+
+  <main class="container">
+    <div class="feature-layout">
+      <!-- SOL MENÜ -->
+      <aside class="side-nav">
+        <div class="side-title">Özellikler</div>
+        <a class="side-link" href="on-muhasebe-programi.html">Ön Muhasebe Programı</a>
+        <a class="side-link" href="gelir-gider-takibi.html">Gelir Gider Takibi</a>
+        <a class="side-link" href="cari-hesap-takibi.html">Cari Hesap Takibi</a>
+        <a class="side-link" href="fatura-takibi.html">Fatura Takibi</a>
+        <a class="side-link active" href="nakit-yonetimi.html">Nakit Yönetimi</a>
+        <a class="side-link" href="stok-depo-takibi.html">Stok ve Depo Takibi</a>
+        <a class="side-link" href="saha-satis-takibi.html">Saha Satış Takibi</a>
+        <a class="side-link" href="siparis-takibi.html">Sipariş Takibi</a>
+        <a class="side-link" href="proje-yonetimi.html">Proje Yönetimi</a>
+        <a class="side-link" href="sube-takibi.html">Şube Takibi</a>
+        <a class="side-link" href="e-ticaret.html">e-Ticaret</a>
+        <a class="side-link" href="e-fatura-pos.html">e-Fatura POS Entegrasyonu</a>
+        <a class="side-link" href="raporlar.html">Raporlar</a>
+        <a class="side-link" href="uretim-takibi.html">Üretim Takibi</a>
+        <a class="side-link" href="e-fatura-earsiv.html">e-Fatura &amp; e-Arşiv</a>
+        <a class="side-link" href="e-irsaliye.html">e-İrsaliye</a>
+        <a class="side-link" href="e-ihracat.html">e-İhracat</a>
+      </aside>
+
+      <!-- SAĞ İÇERİK -->
+      <section class="feature-card">
+        <div class="feature-tag">Özellik</div>
+        <h1 class="feature-title">Nakit Yönetimi</h1>
+        <p class="feature-sub">
+          Nakit yönetimi modülü ile kasa, banka, çek ve senet hareketlerinizi tek panelden takip edersiniz.
+          Böylece günlük nakit durumunuzu ve ilerleyen günlerdeki nakit ihtiyacınızı kolayca planlayabilirsiniz.
+        </p>
+
+        <div class="feature-grid">
+          <div class="feature-block">
+            <div class="feature-block-title">Kasa ve banka bakiyeleri</div>
+            <p>Tüm kasa ve banka hesaplarınızı anlık bakiyeleri ile birlikte görüntülersiniz.</p>
+            <ul>
+              <li>Birden fazla kasa ve banka hesabı tanımı</li>
+              <li>Güncel bakiye ve hareket listesi</li>
+              <li>Şube veya para birimi bazlı takip</li>
+            </ul>
+          </div>
+
+          <div class="feature-block">
+            <div class="feature-block-title">Çek ve senet süreçleri</div>
+            <p>Verilen ve alınan çek/senetlerin vade tarihlerini ve durumlarını takip edersiniz.</p>
+            <ul>
+              <li>Vade takibi ve hatırlatmalar</li>
+              <li>Portföy, bankada, protesto gibi durumlar</li>
+              <li>İlgili cari ve fatura ile ilişkilendirme</li>
+            </ul>
+          </div>
+
+          <div class="feature-block">
+            <div class="feature-block-title">Nakit akış projeksiyonu</div>
+            <p>Gelecekteki tahsilat ve ödemeleri görerek nakit akış planı oluşturursunuz.</p>
+            <ul>
+              <li>Dönemsel nakit giriş/çıkış grafikleri</li>
+              <li>Nakit açığı oluşabilecek dönemleri tespit</li>
+              <li>Finansman ihtiyacını önceden görme</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="cta">
+          <span>Nakit yönetiminizi Benimde.com ile yaparak <strong>günlük ve gelecekteki nakit durumunuzu</strong> kontrol edin.</span>
+          <button class="btn-primary">Nakit yönetimini dene</button>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    © <span id="yil"></span> Benimde.com
+  </footer>
+
+  <script>
+    document.getElementById('yil').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
