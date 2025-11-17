@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Benimde.com – Ön Muhasebe Programı</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root{
+      --bg:#020617;
+      --bg-soft:#050816;
+      --primary:#f97316;
+      --primary-soft:#ffedd5;
+      --text:#f9fafb;
+      --muted:#9ca3af;
+      --border:#111827;
+      --card:#0b1120;
+      --green:#d1fae5;
+      --green-btn:#ffffff;
+      --footer-top:#e9ffe0;
+      --footer-bg:#020617;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;}
+    body{background:var(--bg);color:var(--text);}
+    a{text-decoration:none;color:inherit;}
+    .container{max-width:1200px;margin:0 auto;padding:0 24px;}
+
+    /* NAVBAR */
+    header{background:#020617;position:sticky;top:0;z-index:40;border-bottom:1px solid #030712;}
+    .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0;}
+    .nav-left{display:flex;align-items:flex-start;gap:10px;}
+    .logo-main{font-size:22px;font-weight:800;text-transform:lowercase;letter-spacing:.06em;}
+    .logo-main span{color:var(--primary);}
+    .logo-sub{font-size:11px;color:var(--muted);letter-spacing:.16em;text-transform:uppercase;margin-top:-4px;}
+    .nav-center{display:flex;gap:24px;font-size:14px;}
+    .nav-center a{color:var(--muted);padding:4px 2px;position:relative;display:flex;align-items:center;gap:4px;}
+    .nav-center a span.arrow{
+      font-size:10px;transform:translateY(1px);
+    }
+    .nav-center a:hover{color:#f3f4f6;}
+    .nav-right{display:flex;align-items:center;gap:14px;font-size:14px;}
+    .nav-right a{color:var(--muted);}
+    .btn-primary{
+      background:linear-gradient(135deg,#f97316,#fb923c);
+      border:none;border-radius:999px;padding:8px 18px;
+      font-size:13px;font-weight:600;color:#111827;cursor:pointer;
+      box-shadow:0 8px 24px rgba(248,148,40,0.35);
+    }
+
+    /* HERO */
+    main{padding:40px 0 0;}
+    .hero{
+      display:grid;
+      grid-template-columns:minmax(0,3fr) minmax(0,2.4fr);
+      gap:32px;
+      align-items:center;
+      padding-bottom:40px;
+    }
+    .hero-title{font-size:40px;line-height:1.1;margin-bottom:14px;}
+    .hero-title span{color:var(--primary);}
+    .hero-sub{font-size:15px;color:var(--muted);max-width:520px;margin-bottom:22px;}
+
+    /* E-POSTA FORMU (bizimhesap tarzı) */
+    .hero-form-wrap{
+      display:flex;
+      flex-wrap:wrap;
+      gap:0;
+      background:var(--bg-soft);
+      padding:6px;
+      border-radius:999px;
+      margin-bottom:16px;
+      max-width:480px;
+    }
+    .hero-form-wrap input{
+      flex:1 1 220px;
+      padding:10px 14px;
+      border-radius:999px 0 0 999px;
+      border:none;
+      background:#ffffff;
+      color:#111827;
+      font-size:14px;
+      outline:none;
+    }
+    .hero-form-wrap button{
+      border:none;
+      border-radius:0 999px 999px 0;
+      padding:10px 20px;
+      font-size:14px;
+      font-weight:600;
+      cursor:pointer;
+      background:var(--green-btn);
+      color:#111827;
+      white-space:nowrap;
+    }
+    .hero-meta{font-size:12px;color:var(--muted);display:flex;gap:16px;flex-wrap:wrap;}
+    .hero-meta strong{color:var(--primary-soft);}
+
+    /* DÜNYA + ÇİZGİLİ YÖRÜNGE */
+    .hero-dragon-wrap{
+      position:relative;
+      height:320px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .world-orbit{
+      position:relative;
+      width:280px;height:280px;
+      border-radius:999px;
+      background:
+        radial-gradient(circle at 20% 20%,rgba(248,250,252,0.08),transparent 55%),
+        radial-gradient(circle at 80% 80%,rgba(249,115,22,0.45),transparent 60%);
+      border:1px solid rgba(15,23,42,0.9);
+      box-shadow:0 0 80px rgba(249,115,22,0.35);
+      overflow:hidden;
+    }
+    /* Dünya iç ışığı */
+    .world-glow{
+      position:absolute;inset:0;
+      background:radial-gradient(circle at 30% 0%,rgba(251,191,36,0.4),transparent 55%);
+      mix-blend-mode:screen;
+      opacity:.8;
+    }
+    /* Dış yörünge: kesik çizgi yuvarlak */
+    .world-orbit-ring{
+      position:absolute;
+      inset:8%;
+      border-radius:999px;
+      border:2px dashed rgba(251,191,36,0.8);
+      animation:orbit-spin 16s linear infinite;
+    }
+    /* Küçük yansıma bulutu */
+    .world-halo{
+      position:absolute;
+      inset:0;
+      background:radial-gradient(circle at 50% 85%,rgba(0,0,0,0.7),transparent 60%);
+      opacity:.6;
+    }
+
+    @keyframes orbit-spin{
+      0%{transform:rotate(0deg);}
+      100%{transform:rotate(360deg);}
+    }
+
+    /* ÖNE ÇIKAN ÖZELLİKLER */
+    .section-label{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.18em;margin:0 0 10px;}
+    .features-row{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+      gap:18px;
+      padding-bottom:40px;
+    }
+    .feature-card{
+      background:var(--card);
+      border-radius:20px;
+      padding:18px 18px 16px;
+      border:1px solid var(--border);
+      position:relative;
+      overflow:hidden;
+    }
+    .feature-card::before{
+      content:"";
+      position:absolute;
+      inset:-40%;
+      background:radial-gradient(circle at 0 0,rgba(249,115,22,0.18),transparent 60%);
+      opacity:0;
+      transition:.25s;
+      pointer-events:none;
+    }
+    .feature-card:hover::before{opacity:1;}
+    .feature-title-row{
+      display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;gap:10px;
+    }
+    .feature-title{font-size:15px;font-weight:600;}
+    .feature-chip{
+      font-size:11px;color:var(--muted);
+      border-radius:999px;border:1px solid #1f2937;padding:2px 8px;
+    }
+    .feature-text{font-size:13px;color:var(--muted);margin-bottom:10px;}
+    .feature-link{
+      font-size:13px;color:var(--primary-soft);
+      display:inline-flex;align-items:center;gap:4px;
+    }
+
+    /* FİYAT CTA BLOKU (üst footer) */
+    .footer-top{
+      background:var(--footer-top);
+      text-align:center;
+      padding:48px 16px 36px;
+      color:#ffffff;
+    }
+    .footer-top h2{
+      font-size:28px;
+      margin-bottom:8px;
+    }
+    .footer-top button{
+      margin-top:16px;
+      background:#ffffff;
+      border:none;
+      padding:10px 22px;
+      border-radius:999px;
+      font-size:14px;
+      font-weight:600;
+      cursor:pointer;
+      color:#020617;
+    }
+
+    /* ANA FOOTER */
+    footer{
+      background:var(--footer-bg);
+      color:#ecfdf5;
+      padding:32px 24px 16px;
+      margin-top:0;
+    }
+    .footer-inner{
+      max-width:1200px;
+      margin:0 auto;
+    }
+    .footer-cols{
+      display:grid;
+      grid-template-columns:260px repeat(3,minmax(0,1fr));
+      gap:32px;
+      font-size:13px;
+    }
+    .footer-logo{font-size:26px;font-weight:800;line-height:1.1;margin-bottom:8px;}
+    .footer-logo span{color:#ffffff;}
+    .footer-address{font-size:13px;margin-bottom:14px;}
+    .footer-social{display:flex;gap:8px;font-size:12px;}
+    .footer-social span{
+      width:22px;height:22px;border-radius:999px;border:1px solid #ffffff;
+      display:flex;align-items:center;justify-content:center;
+    }
+    .footer-cols h4{
+      font-size:13px;margin-bottom:8px;font-weight:600;
+    }
+    .footer-cols ul{list-style:none;}
+    .footer-cols li{margin-bottom:4px;color:#ffffff;}
+    .footer-bottom{
+      margin-top:26px;
+      font-size:12px;
+      color:#ffffff;
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      flex-wrap:wrap;
+      border-top:1px solid #ffffff;
+      padding-top:10px;
+    }
+
+    /* YUKARI ÇIKMA MOUSE */
+    .scroll-top{
+      position:fixed;
+      right:22px;
+      bottom:22px;
+      width:40px;height:70px;
+      border-radius:20px;
+      border:2px solid #ffffff;
+      display:flex;
+      justify-content:center;
+      align-items:flex-start;
+      padding-top:8px;
+      cursor:pointer;
+      opacity:0;
+      pointer-events:none;
+      transition:.25s;
+      background:rgba(15,23,42,0.9);
+      z-index:50;
+    }
+    .scroll-top.visible{
+      opacity:1;
+      pointer-events:auto;
+    }
+    .scroll-top-wheel{
+      width:6px;height:12px;border-radius:999px;background:#f97316;
+      animation:wheel 1.4s ease-in-out infinite;
+    }
+    @keyframes wheel{
+      0%{transform:translateY(0);}
+      50%{transform:translateY(10px);}
+      100%{transform:translateY(0);}
+    }
+
+    @media(max-width:960px){
+      .hero{grid-template-columns:1fr;gap:24px;}
+      .hero-dragon-wrap{order:-1;}
+      .footer-cols{grid-template-columns:repeat(2,minmax(0,1fr));}
+    }
+    @media(max-width:640px){
+      .nav{flex-wrap:wrap;gap:10px;}
+      .nav-center{order:3;width:100%;justify-content:center;flex-wrap:wrap;}
+      .hero-title{font-size:32px;}
+      .footer-cols{grid-template-columns:1fr;}
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="container nav">
+    <div class="nav-left">
+      <!-- LOGO: ANASAYFA -->
+      <a href="index.html">
+        <div>
+          <div class="logo-main">ben<span>imde</span></div>
+          <div class="logo-sub">ÖN MUHASEBE PROGRAMI</div>
+        </div>
+      </a>
+    </div>
+
+    <div class="nav-center">
+      <a href="fatura-takibi.html"><span>Özellikler</span><span class="arrow">▾</span></a>
+      <a href="ayricaliklar.html">Ayrıcalıklar</a>
+      <a href="sektorler.html">Sektörler</a>
+      <a href="fiyatlar.html">Fiyatlar</a>
+      <a href="musterilerimiz.html">Bizimkiler</a>
+      <a href="blog.html">Blog</a>
+    </div>
+
+    <div class="nav-right">
+      <a href="giris.html">Giriş Yap</a>
+      <button class="btn-primary">Ücretsiz Kayıt Ol</button>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+  <!-- HERO + DÜNYA -->
+  <section class="hero">
+    <div>
+      <h1 class="hero-title">
+        Hesabını bilenlerin<br/>
+        <span>ön muhasebe programı</span>.
+      </h1>
+      <p class="hero-sub">
+        Cari, stok, fatura, kasa ve banka hareketlerinizi tek panelde toplayın.
+        Benimde.com ile tüm rakamlarınız her zaman güncel ve elinizin altında olsun.
+      </p>
+
+      <div class="hero-form-wrap">
+        <input type="email" placeholder="e-Posta adresiniz" />
+        <button type="submit">Haydi Başlayalım</button>
+      </div>
+
+      <div class="hero-meta">
+        <span><strong>40.000+</strong> işletme Benimde’yi tercih ediyor</span>
+        <span><strong>14 gün</strong> ücretsiz deneme – kredi kartı gerekmez</span>
+      </div>
+    </div>
+
+    <div class="hero-dragon-wrap">
+      <div class="world-orbit">
+        <div class="world-glow"></div>
+        <div class="world-orbit-ring"></div>
+        <div class="world-halo"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ÖNE ÇIKAN ÖZELLİKLER -->
+  <div class="section-label">Öne Çıkan Özellikler</div>
+  <section class="features-row">
+    <article class="feature-card">
+      <div class="feature-title-row">
+        <div class="feature-title">Gelir Gider Takibi</div>
+        <div class="feature-chip">Finans</div>
+      </div>
+      <p class="feature-text">
+        Tüm gelir–gider hareketlerini tek ekrandan takip edin, kârlılığınızı anlık görün.
+      </p>
+      <a class="feature-link" href="gelir-gider-takibi.html">
+        Detayları gör →
+      </a>
+    </article>
+
+    <article class="feature-card">
+      <div class="feature-title-row">
+        <div class="feature-title">Fatura Takibi</div>
+        <div class="feature-chip">e-Fatura</div>
+      </div>
+      <p class="feature-text">
+        Kesilen satış ve alış faturalarını vade, tutar ve tahsilat durumu ile birlikte izleyin.
+      </p>
+      <a class="feature-link" href="fatura-takibi.html">
+        Detayları gör →
+      </a>
+    </article>
+
+    <article class="feature-card">
+      <div class="feature-title-row">
+        <div class="feature-title">e-Ticaret Entegrasyonu</div>
+        <div class="feature-chip">Online satış</div>
+      </div>
+      <p class="feature-text">
+        Pazaryeri ve web mağazalarından gelen siparişleri stok ve fatura ile eşleştirin.
+      </p>
+      <a class="feature-link" href="e-ticaret.html">
+        Detayları gör →
+      </a>
+    </article>
+  </section>
+</main>
+
+<!-- FOOTER ÜST FİYAT CTA -->
+<section class="footer-top">
+    <style>
+  .footer-top{
+    background:#ffbf80 !important;   /* TURUNCU GERİ GELDİ */
+    color:#ffffff;
+    text-align:center;
+    padding:48px 16px 36px;
+  }
+  .footer-top h2{
+    color:#ffffff;
+    font-size:28px;
+  }
+</style>
+  <h2>Hesabını Bilenlere En Avantajlı Fiyatlar<br/>Benimde.com’da!</h2>
+  <button type="button">Fiyatları İnceleyin</button>
+</section>
+
+<!-- ANA FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-cols">
+      <div>
+        <div class="footer-logo">ben<span>imde</span></div>
+        <div class="footer-address">
+          Business İstanbul, B-Blok, Kat:14,<br/>
+          Kadıköy / İstanbul
+        </div>
+        <div class="footer-social">
+          <span>f</span><span>x</span><span>in</span><span>yt</span>
+        </div>
+      </div>
+
+      <div>
+        <h4>Özellikler</h4>
+        <ul>
+          <li><a href="on-muhasebe.html">Ön Muhasebe Programı</a></li>
+          <li>Gelir Gider Takibi></li>
+          <li>Cari Hesap Takibi</li>
+          <li>Fatura Takibi</li>
+          <li>Nakit Yönetimi</li>
+          <li>Stok ve Depo Takibi</li>
+          <li>Saha Satış Takibi</li>
+          <li>e-Fatura &amp; e-Arşiv</li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Ayrıcalıklar</h4>
+        <ul>
+          <li>Yeni Şirket Kampanyası</li>
+          <li>Destek</li>
+          <li>Blog</li>
+          <li>Sektörler</li>
+          <li>Fiyatlar</li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Hakkımızda</h4>
+        <ul>
+          <li>Hakkımızda</li>
+          <li>Gizlilik Koşulları</li>
+          <li>KVKK Aydınlatma Metni</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© <script>document.write(new Date().getFullYear());</script> Benimde.com</span>
+      <span>Uygulamayı indir • App Store • Google Play</span>
+    </div>
+  </div>
+</footer>
+
+<!-- YUKARI ÇIKMA MOUSE -->
+<div class="scroll-top" id="scrollTopBtn" aria-label="Yukarı çık">
+  <div class="scroll-top-wheel"></div>
+</div>
+
+<script>
+  const scrollBtn = document.getElementById('scrollTopBtn');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 200) {
+      scrollBtn.classList.add('visible');
+    } else {
+      scrollBtn.classList.remove('visible');
+    }
+  });
+  scrollBtn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+</script>
+
+</body>
+</html>
